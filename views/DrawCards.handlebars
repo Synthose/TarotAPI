@@ -1,0 +1,9 @@
+<b>Results for {{user}} drawn cards:</b>
+
+{{#each c}}
+    <p>You drew the {{this.cardName}} in the {{this.orientation}} position.</p>
+    <img src="{{this.imageurl}}" alt="{{this.cardname}}" style="transform: rotate({{this.rotation}}deg" />
+    <p>Meaning: {{this.meaning}}</p>
+    <hr>
+    <br>
+{{/each}}

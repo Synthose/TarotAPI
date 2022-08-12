@@ -46,7 +46,14 @@ module.exports = async (req , res) => {
             res.send(cards[selectedCard]);
         },
         'text/html': function(){
-            res.send(response);
+            res.render('DrawCard', {
+                cardname: cards[selectedCard].cardName, 
+                user: (user!=null ? user.username : 'Your'),
+                orientation: (cointoss<1 ? 'upright' : 'inverted'),
+                rotation: (cointoss<1 ? '0' : '180'),
+                meaning: (cointoss<1 ? cards[selectedCard].uprightMeaning : cards[selectedCard].upsidedownMeaning),
+                imageurl: cards[selectedCard].imageUrl
+            });
         },
         'default': function() {
             // log the request and respond with 406

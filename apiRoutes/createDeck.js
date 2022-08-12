@@ -17,8 +17,8 @@ module.exports = async (req , res) => {
                 connection.collection('Deck').drop();
                 json = JSON.parse(body);
                 var cards = json.tarot_interpretations;
-                cards.forEach (card=> {
-                    let i = 0;
+                var i = 0;
+                cards.forEach (card=> {  
                     let newCard = new Card({
                         cardNumber: card.rank.toString().replace("page",11).replace("knight",12).replace("queen",13).replace("king",14),
                         cardName: card.name,
@@ -43,7 +43,7 @@ module.exports = async (req , res) => {
         console.error(error.message);
     });
     try{
-        res.status(201).send("Deck instatiated");  
+        res.status(201).send("Deck instantiated");  
     }catch(err){
         res.send('Error ' + err);
     }

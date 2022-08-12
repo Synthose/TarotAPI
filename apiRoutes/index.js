@@ -8,6 +8,10 @@ var createCard  = require('./createCard.js');
 var createDeck  = require('./createDeck.js');
 var gethistory  = require('./gethistory.js');
 
+router.get('/' , (req, res) => {
+    res.render('landingPage');
+});
+
 //Post Method
 router.post('/createCard', createCard);
 router.post('/createDeck', createDeck);

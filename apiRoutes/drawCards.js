@@ -34,8 +34,9 @@ module.exports = async (req , res) => {
         creationDate: new Date(),
         cards: cardIDs
     });
+    var user = null;
     if(req.params.p){
-        let user = await User.findOne({username: req.params.p});
+        user = await User.findOne({username: req.params.p});
         if(!user){
             let newUser = new User({
                 username: req.params.p,
@@ -66,7 +67,21 @@ module.exports = async (req , res) => {
             res.send(drawnCards);
         },
         'text/html': function(){
-            res.send(drawnCards);
+            let formatedCards = new Object();
+            formatedCards.data = drawnCards.map(function(card){
+                let smallcard = new Object();
+                smallcard.cardName = card.cardName;
+                smallcard.imageurl = card.imageUrl;
+                smallcard.orientation = Math.floor(Math.random() * 2)<1 ? 'upright' : 'inverted';
+                smallcard.rotation = smallcard.orientation == 'upright' ? '0' : '180';
+                smallcard.meaning = smallcard.orientation == 'upright' ? card.uprightMeaning : card.upsidedownMeaning;
+                return smallcard;
+            });
+            console.log(formatedCards);
+            res.render('DrawCards', {
+                c: formatedCards.data,
+                user: (user!=null ? user.username : 'Your')
+            });
         },
         'default': function() {
             // log the request and respond with 406
