@@ -29,9 +29,21 @@ module.exports = async (req , res) => {
             history.push(cards);
         }
         response.lastReading = history;
-        
-
-        console.log(response);
-        res.json(response);
+        res.format({
+            'text/plain': function(){
+                res.json(response);
+            },
+            'application/json': function(){
+                res.json(response);
+            },
+            'text/html': function(){
+                res.render('history', {
+                    history: response.lastReading
+                });
+            },
+            'default': function(){
+                res.status(406).send('Not Acceptable');
+            }
+        });
     }
 };

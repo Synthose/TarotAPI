@@ -1,0 +1,7 @@
+<h3>List of Users</h3>
+<table>
+    <tr><th>UserName</th><th>Email</th><th>Creation Date</th><th>Drawing Count</th></tr>
+{{#each users}}
+   <tr> <td>{{this.username}}</td><td>{{this.email}}</td><td>{{this.creationDate}}</td><td>{{this.readingcount}}</td> </tr>
+{{/each}}
+</table>

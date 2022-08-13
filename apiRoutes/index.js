@@ -7,6 +7,7 @@ var drawCards   = require('./drawCards.js');
 var createCard  = require('./createCard.js');
 var createDeck  = require('./createDeck.js');
 var gethistory  = require('./gethistory.js');
+var getusers    = require('./getusers.js');
 
 router.get('/' , (req, res) => {
     res.render('landingPage');
@@ -28,8 +29,14 @@ router.get('/getOne/:id', (req, res) => {
     res.send('Get by ID API')
 })
 
+//Get by Username Method
+router.get('/users/', getusers);
+router.get('/getusers', getusers);
+
 //Get User History by Username
 router.get('/gethistory/:p', gethistory);
+
+
 
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
