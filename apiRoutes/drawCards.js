@@ -35,8 +35,8 @@ module.exports = async (req , res) => {
         cards: cardIDs
     });
     var user = null;
-    if(req.params.p){
-        user = await User.findOne({username: req.params.p});
+    if(req.params.p || req.session.user){
+        user = await User.findOne({username: req.params.p?req.params.p:req.session.user});
         if(!user){
             let newUser = new User({
                 username: req.params.p,

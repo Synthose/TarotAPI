@@ -7,12 +7,14 @@ module.exports = async (req , res) => {
     let cointoss = Math.floor(Math.random() * 2);
     var response = "";    
     var user = null;
+   
     let newLayout = new layout({ 
         creationDate: new Date(),
         cards: [cards[selectedCard]._id]
     });
-    if(req.params.p){
-        let p = req.params.p;
+    if(req.params.p || req.session.user){
+        console.log(req.session);
+        let p = req.params.p ? req.params.p : req.session.user;
         user = await User.findOne({username: p});
         newlayout = await newLayout.save();
         if(!user || user.length == 0){

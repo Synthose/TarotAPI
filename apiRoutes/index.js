@@ -10,9 +10,19 @@ var gethistory  = require('./gethistory.js');
 var getusers    = require('./getusers.js');
 var addUser     = require('./addUser.js');
 var login       = require('./login.js');
+var dashboard = require('./dashboard.js');
 
 router.get('/' , (req, res) => {
-    res.render('landingPage');
+    session = req.session;
+    if(session.user)
+    {
+        res.redirect('dashboard');
+    }
+    else
+    {
+        res.render('landingPage');
+    }
+    
 });
 
 //Post Method
@@ -34,9 +44,12 @@ router.get('/getOne/:id', (req, res) => {
 //Get by Username Method
 router.post('/addUser', addUser);
 router.post('/login', login);
+router.get('/login', (req,res) => {
+    res.render('login');
+});
 router.get('/users/', getusers);
 router.get('/getusers', getusers);
-
+router.get('/dashboard', dashboard);
 
 //Get User History by Username
 router.get('/gethistory/:p', gethistory);
