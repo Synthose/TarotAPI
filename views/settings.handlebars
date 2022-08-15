@@ -1,0 +1,15 @@
+<h2>Settings</h2>
+<p>{{user}}</p>
+<form method="POST" action="/settings">
+    <label for="email"> update Email: </label>
+    <input  type="text" name="email" default="{{email}}" size="30" required>
+    <p></p>
+    <label for="password"> new Password: </label>
+    <input type="password" name="password"  size="30">
+    <input type="submit"/>
+</form>
+<p></p>
+<p> </p>
+<form method="POST" action="/clearHistory">
+    <input type="submit" value="Delete History"/>
+</form>

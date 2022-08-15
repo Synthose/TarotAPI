@@ -20,7 +20,9 @@ app.use(sessions({
 
 
 const { engine } = require ('express-handlebars');
-app.engine('handlebars', engine({ extname: "handlebars", defaultLayout: 'main', layoutsDir: "views/pagelayouts/", }) );
+app.engine('handlebars', engine({ extname: "handlebars", defaultLayout: 'main',
+  layoutsDir: "views/pagelayouts/"
+}));
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
 
@@ -37,6 +39,9 @@ connection.once('connected', function() {
 });
 
 var session;
+if(session!=null){
+  console.log("Session is not null");
+}
 const routes = require('./apiRoutes/index');
 app.use('/', routes);
 

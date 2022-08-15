@@ -9,8 +9,13 @@ var createDeck  = require('./createDeck.js');
 var gethistory  = require('./gethistory.js');
 var getusers    = require('./getusers.js');
 var addUser     = require('./addUser.js');
+var addUserForm = require('./addUserForm.js');
 var login       = require('./login.js');
 var dashboard = require('./dashboard.js');
+var card = require('./card.js');
+var settings = require('./settings.js');
+var updateSettings = require('./updateSettings.js');
+var clearHistory = require('./clearHistory.js');
 
 router.get('/' , (req, res) => {
     session = req.session;
@@ -25,6 +30,10 @@ router.get('/' , (req, res) => {
     
 });
 
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 //Post Method
 router.post('/createCard', createCard);
 router.post('/createDeck', createDeck);
@@ -37,32 +46,28 @@ router.get('/drawCards', drawCards);
 router.get('/drawCards/:p', drawCards);
 
 //Get by ID Method
-router.get('/getOne/:id', (req, res) => {
-    res.send('Get by ID API')
-})
+router.get('/card', card);
 
 //Get by Username Method
 router.post('/addUser', addUser);
+router.get('/addUser', addUserForm);
 router.post('/login', login);
 router.get('/login', (req,res) => {
+    if(req.session.user == null || req.session.user == undefined){
     res.render('login');
+    }else{
+        res.render('dashboard', {
+            message: "You are already logged in!"
+        });
+    }
 });
 router.get('/users/', getusers);
 router.get('/getusers', getusers);
 router.get('/dashboard', dashboard);
+router.get('/settings', settings);
+router.post('/settings', updateSettings);
 
 //Get User History by Username
 router.get('/gethistory/:p', gethistory);
-
-
-
-//Update by ID Method
-router.patch('/update/:id', (req, res) => {
-    res.send('Update by ID API')
-})
-
-//Delete by ID Method
-router.delete('/delete/:id', (req, res) => {
-    res.send('Delete by ID API')
-})
-
+router.get('/gethistory', gethistory);
+router.post('/clearHistory',clearHistory);

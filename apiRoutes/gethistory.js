@@ -2,7 +2,9 @@ const Card = require('../model/card.js');
 const User = require('../model/user.js');
 const layout = require('../model/layout.js');
 module.exports = async (req , res) => {
-    let user = await User.findOne({username: req.params.p});
+    var user = req.session.user?req.session.user:req.params.p;
+    console.log(user);
+    var user = await User.findOne({username: user});
     let response = new Object();
     let historyCount = 0;
     if(!user){
@@ -16,17 +18,19 @@ module.exports = async (req , res) => {
         let layouts = user.layouts;
         let history = [];
         console.log(layouts.length);
+
         for(let i = layouts.length-1, j=0 ; i >= 0 && j<historyCount ; i--, j++){
+            let event = new Object();
+            event.cards = [];
+            event.creationDate=null;
             let recentLayout = layouts[i][0];
-            console.log(i+" "+j);
             console.log((recentLayout)._id);
-            var cards = []
             for(let i = 0; i < recentLayout.cards.length; i++){
                 let card = await Card.findOne({_id: recentLayout.cards[i]});
-                cards.push(card.cardName);
+                event.cards.push([card.cardName,card._id]);
             }
-            cards.push(recentLayout.creationDate);
-            history.push(cards);
+            event.creationDate = recentLayout.creationDate;
+            history.push(event);
         }
         response.lastReading = history;
         res.format({
@@ -37,7 +41,10 @@ module.exports = async (req , res) => {
                 res.json(response);
             },
             'text/html': function(){
+                console.log(history)
+                var data = user;
                 res.render('history', {
+                    loggedInUser: data.username,
                     history: response.lastReading
                 });
             },

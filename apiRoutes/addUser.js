@@ -18,13 +18,19 @@ module.exports = async (req , res) => {
                 }); 
             } 
             else { 
-                return res.status(201).send({ 
-                    message : "User added successfully."
+                res.format({
+                    'text/plain': function(){
+                        res.send("User added");
+                    },
+                    'application/json': function(){
+                        res.send(User);
+                    },
+                    'text/html': function(){
+                        console.log("redirecting");
+                        res.render('login');
+                    }
                 }); 
             } 
         }); 
     }
-
-    
-
 };
