@@ -4,9 +4,9 @@
   "description": "A simple api for generating tarot readings and requesting info on cards",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test\" && exit 1"
-  },
+    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "./node_modules/.bin/netlify-lambda build src"
+    },
   "keywords": [
     "tarot",
     "card"
