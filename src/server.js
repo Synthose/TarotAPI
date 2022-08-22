@@ -27,7 +27,7 @@ app.engine('handlebars', engine({ extname: "handlebars", defaultLayout: 'main',
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
 
-const credentials = require("./credentials.js");
+const credentials = require("../credentials.js");
 
 const dbUrl = 'mongodb+srv://' + credentials.username +
 	':' + credentials.password + '@' + credentials.host + '/' + credentials.database;
@@ -43,7 +43,7 @@ var session;
 if(session!=null){
   console.log("Session is not null");
 }
-const routes = require('./apiRoutes/index');
+const routes = require('../apiRoutes/index');
 
 app.use(`/.netlify/functions/server`, routes);
 
