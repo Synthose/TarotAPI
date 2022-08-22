@@ -3,10 +3,16 @@
 TarotAPI is a nodeJS and MongoDB based project that allows individuals to make tarot spreads,
 track their past readings, and get more info on cards.
 
+# Author
+
+Alan Krajbich, CS602, 8/15/2022
+synthose@gmail.com
+
 ## Installation
 
 From the home folder, you need only type "npm start" in the command prompt.
 
+Can be reached from localhost:3000/
 
 # Paths
 /createCard  POST only Method: Allows a user to create a custom card and add it to the deck. Must have a full card of details in JSON format as the call body.

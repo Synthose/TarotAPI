@@ -3,7 +3,7 @@ const User = require('../model/user.js');
 const Layout = require('../model/layout.js');
 
 module.exports = async (req , res) => {
-    if (req.query.key == "admin"){
+    if (req.query.key == "admin" || req.session.user) {
         var users = await User.find({});
         var response = new Object();
         response.users = users.map(function(user){
@@ -33,6 +33,19 @@ module.exports = async (req , res) => {
     }
     else
     {
+        res.format({   
+            'text/plain': function() {
         res.send("Not authorized");
+            }, 
+            'application/json': function() {
+                res.send("Not authorized");
+            },
+            'text/html': function() {
+                res.render('dashboard', {
+                    message: "Not authorized"
+                });
+            }
+        });
+
     }
 };

@@ -8,7 +8,18 @@ module.exports = async (req , res) => {
     let response = new Object();
     let historyCount = 0;
     if(!user){
-        res.send("User not found");
+        res.format({
+            'application/json': function(){
+                response.status = "error";
+                response.message = "User not found";
+                res.json(response);
+            },
+            'text/html': function(){
+                res.render('dashboard', {
+                    message: "Not Logged in, or user not found!"
+                });
+            }
+        });
     }else{
         if(!req.query.count){
             historyCount = 1;
