@@ -2,10 +2,11 @@
   "name": "tarot_card_api",
   "version": "1.0.0",
   "description": "A simple api for generating tarot readings and requesting info on cards",
-  "main": "server.js",
+  "private": true,
+  "main": "functions/server.js",
   "scripts": {
     "start": "./node_modules/.bin/netlify-lambda serve src",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "build": "netlify-lambda build express -c ./webpack.config.js"
   },
   "keywords": [
     "tarot",
