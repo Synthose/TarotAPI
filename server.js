@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const sessions = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
+const serverless = require("serverless-http");
 const app = express();
 
 const oneDay = 86400000;
@@ -43,10 +44,9 @@ if(session!=null){
   console.log("Session is not null");
 }
 const routes = require('./apiRoutes/index');
-app.use('/', routes);
 
-app.listen(3000, function(){
-    console.log('http://localhost:3000');
-  });
-  
-  
+app.use(`/.netlify/functions/server`, routes);
+
+
+  module.exports = app;
+  module.exports.handler = serverless(app);
