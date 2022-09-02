@@ -45,8 +45,9 @@ if(session!=null){
 const routes = require('./apiRoutes/index');
 app.use('/', routes);
 
-app.listen(3000, function(){
-    console.log('http://localhost:3000');
-  });
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
+});
   
   
